@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cole's Website</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="nav__link" data-link>Home</a>
+        <a href="/MusicPracticeApp" class="nav__link" data-link>Music Practice App</a>
+        <a href="/updates" class="nav__link" data-link>Updates</a>
+        <a href="/contact" class="nav__link" data-link>Contact Me</a>
+    </nav>
+    <div id="app"></div>
+    <!--  <script type="text/javascript" src="/libraries/pitch.js"></script> -->
+    <script type="module" src="/static/js/index.js"></script>
+    <!--  METRONOME -->
+    <script type="text/javascript">
+        var i = 0;
+        function metronomeSound() {
+            i += 1;
+            var audio = new Audio("./static/js/views/metclick.mp3");         
+            var bpm = (1000/((document.getElementById("bpm").value)/60));
+ 
+            if (i % 2 === 1) {
+                setInterval(function () { audio.play() },bpm);
+            } else if (i % 2 === 0) {
+                clearInterval(i/2);
+            }
+        }
+    </script>
+    <!--  PRACTICE APP -->
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>
