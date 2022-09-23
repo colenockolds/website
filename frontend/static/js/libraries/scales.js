@@ -4,7 +4,7 @@ Amin = new Array("A","B","C","D","E","F","G");
 Gmaj = new Array("G","A","B","C","D","E","F#");
 Emin = new Array("E","F#","G","A","B","C","D");
 
-Dmaj = new Array("D","E","F","G","A","B","C#");
+Dmaj = new Array("D","E","F#","G","A","B","C#");
 Bmin = new Array("B","C#","D","E","F#","G","A");
 
 Amaj = new Array("A","B","C#","D","E","F#","G#");
@@ -51,8 +51,9 @@ Aflat_min = new Array("Ab","Bb","Cb","Db","Eb","Fb","Gb");
 //    return notes;
 //}
 
+notes = new Array();
+
 function generateNotes(n,scale) {
-    notes = new Array(n);
     x1 = 8;
     x = 8;
     for (let noteCounter = 0; noteCounter < n; noteCounter++) {
@@ -71,21 +72,20 @@ function generateNotes(n,scale) {
                 notes[noteCounter] = scale[Math.floor(x-1)];
             }
         }
-        console.log(x1)
     }
+    console.log(notes)
     return notes;
 }
 
 function scaleNotes(scale,octaves,direction) {
-    len = octaves*scale.length+1;
     var s = scale;
-    if (direction === "descending") {
+    if (direction == "descending") {
         for (let j = 0; j < octaves-1; j++) {
             scale = scale.concat(s);
         }
         scale = scale.concat(scale[0]);
         return scale;
-    } else if (direction === "ascending") {
+    } else if (direction == "ascending") {
         s = s.reverse();
         for (let j = 0; j < octaves-1; j++) {
             scale = scale.concat(s);
@@ -93,7 +93,7 @@ function scaleNotes(scale,octaves,direction) {
         note1 = new Array(scale[6]);
         scale = note1.concat(scale);
         return scale;
-    } else if (direction === "descending/ascending") {
+    } else if (direction == "descending/ascending") {
         for (let j = 0; j < octaves-1; j++) {
             scale = scale.concat(s);
         }
@@ -106,5 +106,38 @@ function scaleNotes(scale,octaves,direction) {
     }
 }
 
-console.log(generateNotes(20,Cmaj))
-//console.log(scaleNotes(Cmaj,1,"descending"))
+chosenScale = new Array();
+
+function selectScale(scale) {
+    chosenScale = scale;
+    return chosenScale;
+}
+
+var scaleMode = "scale"
+var randomMode = "random"
+chosenMode = new Array();
+
+function selectMode(mode) {
+    chosenMode = mode;
+    console.log(chosenMode)
+    return chosenMode;
+}
+
+function getData() {
+    var mode = chosenMode;
+    var noteCount = document.getElementById("noteCount").value;
+    var octaves = document.getElementById("octaves").value;
+    var direction = document.getElementById("direction").value;
+    var scaleChoice = chosenScale;
+    if (mode == "random") {
+        var s = selectScale(scaleChoice);
+        var n = generateNotes(noteCount,s);
+        return n;
+    }
+    if (mode == "scale") {
+        var s = selectScale(scaleChoice);
+        console.log(scaleNotes(s,octaves,direction))
+        return scaleNotes(s,octaves,direction);
+    }
+    return mode, noteCount, octaves, direction, scaleChoice;
+}
